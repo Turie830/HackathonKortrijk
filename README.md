@@ -49,6 +49,15 @@ De accounts `sara`, `an` en `kim` bestaan ook afzonderlijk. Hun wachtwoord staat
 
 Om de server te stoppen druk je op `Ctrl+C`.
 
+## Deploy op Google Cloud
+
+Zie [de Cloud Run-handleiding](docs/deployment.md) voor de deploycommando's en
+de beperkingen van deze gedeelde demo.
+
+De `Dockerfile` start de app achter de proxy van Cloud Run: `--proxy-headers`, secure cookies, en demoknoppen en het
+admin-account zonder wachtwoord uitgeschakeld. Geef bij het deployen `PARALLAX_ALLOWED_HOSTS` (je hostnaam) en
+`PARALLAX_DEMO_PASSWORD` mee, zodat je als `sara`, `an` of `kim` kan inloggen. Zie `.env.example`.
+
 ## Zo gebruik je de website
 
 **Sara, consultant: Vraag stellen**
