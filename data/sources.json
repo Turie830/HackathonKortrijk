@@ -1,0 +1,66 @@
+[
+  {
+    "id": "BE-HANDOVER-2026", "title": "Goedgekeurde klantoverdracht · België", "kind": "Procedure",
+    "country": "BE", "client_id": null, "owner": "Payroll Operations", "approved": true,
+    "valid_from": "2026-01-01", "valid_until": null, "updated_at": "2026-09-01",
+    "supersedes": [],
+    "passages": [{"section": "1", "text": "Bij een klantoverdracht vult de vertrekkende consultant het overdrachtsformulier in. De nieuwe consultant controleert openstaande vragen, klantafspraken en de laatste verwerkingsstatus. De teamlead bevestigt de overdracht voordat de nieuwe consultant het dossier zelfstandig behandelt. Dit is een fictieve demoprocedure."}],
+    "claims": {"1": {"overdracht_bevestiging": "teamlead"}}
+  },
+  {
+    "id": "BE-CORRECTION-2025", "title": "Looncorrecties · oude versie", "kind": "Procedure",
+    "country": "BE", "client_id": null, "owner": "Payroll Quality", "approved": true,
+    "valid_from": "2025-01-01", "valid_until": "2025-12-31", "updated_at": "2025-02-01",
+    "supersedes": [],
+    "passages": [{"section": "1", "text": "Voor een looncorrectie is volgens deze oude demoprocedure geen tweede controle nodig. De consultant kan de correctie rechtstreeks uitvoeren. Deze procedure is vervangen vanaf 1 januari 2026."}],
+    "claims": {"1": {"looncorrectie_controle": "geen tweede controle"}}
+  },
+  {
+    "id": "BE-CORRECTION-2026", "title": "Looncorrecties · huidige versie", "kind": "Procedure",
+    "country": "BE", "client_id": null, "owner": "Payroll Quality", "approved": true,
+    "valid_from": "2026-01-01", "valid_until": null, "updated_at": "2026-08-15",
+    "supersedes": ["BE-CORRECTION-2025"],
+    "passages": [{"section": "1", "text": "Voor een looncorrectie controleert een tweede consultant de wijziging en legt die de goedkeuring vast in het dossier voordat de correctie wordt uitgevoerd. Dit is een fictieve demoprocedure, geldig vanaf 1 januari 2026."}],
+    "claims": {"1": {"looncorrectie_controle": "tweede consultant"}}
+  },
+  {
+    "id": "BE-DEADLINE-POLICY", "title": "Deadline voor maandelijkse verwerking", "kind": "Procedure",
+    "country": "BE", "client_id": null, "owner": "Payroll Planning", "approved": true,
+    "valid_from": "2026-01-01", "valid_until": null, "updated_at": "2026-09-02",
+    "supersedes": [],
+    "passages": [{"section": "1", "text": "De deadline voor het indienen van wijzigingen voor de maandelijkse verwerking is volgens deze fictieve algemene Belgische procedure dinsdag om 12:00."}],
+    "claims": {"1": {"maandelijkse_deadline": "dinsdag 12:00"}}
+  },
+  {
+    "id": "BE-DEADLINE-CHAT", "title": "Teams-notitie over de deadline", "kind": "Teams-notitie",
+    "country": "BE", "client_id": null, "owner": "Payroll Planning", "approved": false,
+    "valid_from": "2026-09-01", "valid_until": null, "updated_at": "2026-09-15",
+    "supersedes": [],
+    "passages": [{"section": "1", "text": "In deze fictieve Teams-notitie zegt een collega dat de algemene Belgische deadline voor wijzigingen voor de maandelijkse verwerking voortaan woensdag om 15:00 is. Er is geen formele goedkeuring vastgelegd."}],
+    "claims": {"1": {"maandelijkse_deadline": "woensdag 15:00"}}
+  },
+  {
+    "id": "NL-DEADLINE-POLICY", "title": "Deadline voor maandelijkse verwerking · Nederland", "kind": "Procedure",
+    "country": "NL", "client_id": null, "owner": "Payroll Nederland", "approved": true,
+    "valid_from": "2026-01-01", "valid_until": null, "updated_at": "2026-08-01",
+    "supersedes": [],
+    "passages": [{"section": "1", "text": "De deadline voor wijzigingen voor de maandelijkse verwerking in Nederland is volgens deze fictieve demoprocedure donderdag om 10:00. Deze procedure geldt uitsluitend voor Nederland."}],
+    "claims": {"1": {"maandelijkse_deadline": "donderdag 10:00"}}
+  },
+  {
+    "id": "ACME-HANDOVER", "title": "Aanvulling klantoverdracht · Demo Acme", "kind": "Klantafspraak",
+    "country": "BE", "client_id": "demo-acme", "owner": "Demo Acme accountteam", "approved": true,
+    "valid_from": "2026-01-01", "valid_until": null, "updated_at": "2026-09-05",
+    "supersedes": [],
+    "passages": [{"section": "1", "text": "Bij een klantoverdracht voor Demo Acme wordt aanvullend een introductiegesprek met de klantcontactpersoon gepland. De algemene Belgische overdrachtsprocedure blijft van toepassing. Dit is een fictieve klantafspraak."}],
+    "claims": {"1": {"overdracht_introductie": "klantgesprek verplicht"}}
+  },
+  {
+    "id": "BE-OWNERLESS", "title": "Notitie over archiveren van dossiers", "kind": "Losse notitie",
+    "country": "BE", "client_id": null, "owner": null, "approved": false,
+    "valid_from": "2026-01-01", "valid_until": null, "updated_at": "2026-03-01",
+    "supersedes": [],
+    "passages": [{"section": "1", "text": "Volgens deze fictieve losse notitie kan een afgesloten dossier worden gearchiveerd. Er is geen eigenaar of goedkeuring bekend. Vraag een expert naar de geldige archiveringsprocedure."}],
+    "claims": {}
+  }
+]
