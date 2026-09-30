@@ -1,13 +1,6 @@
 # HackathonKortrijk
 ## Teammates: Arthur Pintelon, Lamine Dene, Mauro Devolder, Nathaniel Lala
 
-
-hell yeah cmon lads
-
-\begin{statementLamine}
-  WE GAAN WINNEN WE GAAN WINNEN WE GAAN WINNEN
-\end{statementLamine}
-
 ## Knowledge Within — SD Worx prototype
 
 Python-app voor het vinden en beoordelen van verspreide kennis. Inclusief een
