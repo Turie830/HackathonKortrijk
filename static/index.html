@@ -1,69 +1,53 @@
 <!doctype html>
 <html lang="nl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Knowledge Within · SD Worx demo</title>
-  <link rel="stylesheet" href="/static/style.css">
-  <script src="/static/app.js" defer></script>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#172822">
+  <title>PARALLAX — Kennis in perspectief</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/style.css"><script src="/static/app.js" defer></script>
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="/" aria-label="Knowledge Within home"><span class="mark">k<span>•</span></span><span>knowledge <strong>within</strong></span></a>
-    <span class="project-label">SD WORX CHALLENGE <span class="demo-badge">PROTOTYPE</span></span>
-  </header>
+  <aside class="rail">
+    <a class="brand" href="/" aria-label="Parallax home"><span class="brand-symbol" aria-hidden="true">◒</span>parallax<span class="brand-dot">.</span></a>
+    <p class="brand-sub">KENNIS IN PERSPECTIEF</p>
+    <div class="rail-label">WERKRUIMTE</div>
+    <nav aria-label="Werkruimte">
+      <button class="nav-item active" data-tab="investigate" aria-pressed="true"><span>◎</span> Onderzoek <span class="nav-index">01</span></button>
+      <button class="nav-item" data-tab="library" aria-pressed="false"><span>▤</span> Bronnenatlas <span class="nav-index">02</span></button>
+      <button class="nav-item" data-tab="reviews" aria-pressed="false"><span>↺</span> Kennislus <span id="review-count" class="nav-index">03</span></button>
+    </nav>
+    <div class="rail-note"><span class="orbit" aria-hidden="true">↗</span><p>De beste kennis laat zien<br><em>waar de twijfel zit.</em></p><span>Find it. Understand it. Trust it.</span></div>
+    <button id="guide-button" class="guide-button">▷ De demo in 3 stappen</button>
+    <div class="rail-bottom"><span class="live-dot"></span> Lokaal demolab<br><small>SD Worx challenge · Tectonic</small></div>
+  </aside>
   <main>
-    <section class="hero">
-      <div class="eyebrow"><span class="dot"></span> FIND IT. UNDERSTAND IT. TRUST IT.</div>
-      <h1>Een antwoord is pas bruikbaar<br>als je weet <em>waarom.</em></h1>
-      <p>Vind kennis in procedures en gesprekken. Zie welke bronnen gelden,<br>waar ze verschillen en wie je verder kan helpen.</p>
-      <div class="hero-foot"><span>01 / Vind de bron</span><span>02 / Begrijp de context</span><span>03 / Beoordeel het antwoord</span></div>
+    <header class="topline"><span>ORGANISATIONAL KNOWLEDGE / EXPLORER</span><span class="lab-pill">FICTIEVE BRONNEN <span>↗</span></span></header>
+    <div id="error" class="error" role="alert" hidden></div>
+    <section id="guide" class="guide" hidden aria-label="Demoroute">
+      <strong>Van twijfel naar gedeelde kennis, in drie stappen.</strong>
+      <ol><li>Kies ‘De verschoven deadline’ en open beide bronpassages.</li><li>Vergelijk met een andere datum of Nederland. Zie waarom context telt.</li><li>Maak een expertverzoek, beoordeel het in de Kennislus en onderzoek opnieuw.</li></ol>
+      <p>Alle beoordelingen zijn simulaties. Er wordt niemand gecontacteerd.</p>
     </section>
-    <div class="workspace">
-      <section class="question-panel" aria-labelledby="question-heading">
-        <div class="panel-top"><span class="eyebrow">KENNISASSISTENT</span><span class="live-label">● Demo actief</span></div>
-        <h2 id="question-heading">Waar twijfel je over?</h2>
-        <p class="muted">Stel je vraag en geef de context mee.</p>
-        <form id="question-form">
-          <label for="question">Je vraag</label>
-          <textarea id="question" required minlength="3" maxlength="1000" rows="4" placeholder="Bijvoorbeeld: Wie moet een looncorrectie goedkeuren?"></textarea>
-          <div class="fields">
-            <div><label for="country">Land</label><select id="country"><option value="BE">België</option><option value="NL">Nederland</option></select></div>
-            <div><label for="client">Klantcontext</label><select id="client"><option value="">Algemene procedures</option><option value="demo-acme">Demo Acme</option></select></div>
-          </div>
-          <label for="as-of">Situatie op datum</label>
-          <input id="as-of" type="date" value="2026-09-30" required>
-          <button id="ask-button" type="submit" class="primary">Zoek een onderbouwd antwoord <span>↗</span></button>
-        </form>
-        <div class="examples">
-          <span class="eyebrow">PROBEER EEN SCENARIO</span>
-          <button type="button" data-example="handover"><span class="example-icon green">✓</span><span>Klantoverdracht<small>Een antwoord met onderbouwing</small></span><span class="arrow">→</span></button>
-          <button type="button" data-example="correction"><span class="example-icon amber">↺</span><span>Looncorrectie<small>Een procedure is vervangen</small></span><span class="arrow">→</span></button>
-          <button type="button" data-example="deadline"><span class="example-icon red">≠</span><span>Deadline maandverwerking<small>Twee bronnen spreken elkaar tegen</small></span><span class="arrow">→</span></button>
-        </div>
-      </section>
-      <section class="result-panel" aria-label="Antwoord en onderbouwing">
-        <nav class="tabs" aria-label="Werkruimte">
-          <button type="button" class="tab active" data-tab="answer" aria-pressed="true">Antwoord & bronnen</button>
-          <button type="button" class="tab" data-tab="library" aria-pressed="false">Kennisbank</button>
-          <button type="button" class="tab" data-tab="reviews" aria-pressed="false">Expertbeoordelingen</button>
-        </nav>
-        <div id="error" class="error" role="alert" hidden></div>
-        <div id="answer-view" class="view">
-          <div id="empty" class="empty">
-            <div class="empty-symbol">⌕</div><span class="eyebrow">VAN VRAAG NAAR INZICHT</span>
-            <h2>Maak de onderbouwing zichtbaar.</h2>
-            <p>Stel een vraag of kies een scenario.<br>Hier verschijnen het antwoord, de broncontroles<br>en eventuele tegenstrijdigheden.</p>
-            <div class="empty-legend"><span>✓ Geldigheid</span><span>◇ Toepassingsgebied</span><span>≠ Verschillen</span></div>
-          </div>
-          <div id="loading" class="empty" role="status" hidden><div class="spinner"></div><h2>Bronnen vergelijken…</h2><p>We controleren de context, geldigheid en verschillen.</p></div>
-          <div id="result" aria-live="polite" hidden></div>
-        </div>
-        <div id="library-view" class="view" hidden></div>
-        <div id="reviews-view" class="view" hidden></div>
-      </section>
-    </div>
-    <footer><span>Fictieve voorbeeldgegevens · Geen echte SD Worx-procedures of payrolladvies.</span><span>Lokale demo · Expertverzoeken worden alleen hier opgeslagen.</span></footer>
+    <section id="investigate-view" class="view">
+      <div class="page-heading"><div><div class="eyebrow">01 — ONDERZOEK</div><h1>Kennis heeft<br><em>meer dan één kant.</em></h1></div><p>Een document zegt dinsdag. Een collega zegt woensdag.<br>Ontdek wat geldt, waarom het verschilt<br>en wie de twijfel kan wegnemen.</p></div>
+      <div class="scenarios" aria-label="Demo-scenario's">
+        <button data-scenario="deadline" class="scenario selected"><span class="scenario-number">01</span><span>De verschoven deadline<small>Een procedure. Een chat. Een conflict.</small></span><span class="scenario-arrow">↗</span></button>
+        <button data-scenario="correction" class="scenario"><span class="scenario-number">02</span><span>Het oude draaiboek<small>Gevonden is nog niet geldig.</small></span><span class="scenario-arrow">↗</span></button>
+        <button data-scenario="handover" class="scenario"><span class="scenario-number">03</span><span>De nieuwe collega<small>Welke kennis reist mee?</small></span><span class="scenario-arrow">↗</span></button>
+      </div>
+      <form id="question-form" class="question-box">
+        <label for="question" class="eyebrow">HET MOMENT VAN TWIJFEL</label>
+        <div class="question-row"><input id="question" type="text" minlength="3" maxlength="1000" required value="Wat is de deadline voor de maandelijkse verwerking?" placeholder="Welke kennis heb je nodig?"><button id="ask-button" class="primary" type="submit">Onderzoek <span>↗</span></button></div>
+        <div class="context-controls"><div><label for="country">Land</label><select id="country"><option value="BE">België</option><option value="NL">Nederland</option></select></div><span class="control-divider"></span><div><label for="client">Klant</label><select id="client"><option value="">Algemeen</option><option value="demo-acme">Demo Acme</option></select></div><span class="control-divider"></span><div><label for="as-of">Geldig op</label><input id="as-of" type="date" value="2026-09-30" required min="2000-01-01" max="2100-12-31"></div><span class="context-tip">Context bepaalt welke kennis geldt.</span></div>
+      </form>
+      <div id="loading" class="loading" role="status" hidden><span class="spinner"></span> Bronnen verbinden en context controleren…</div>
+      <div id="result" aria-live="polite"></div>
+    </section>
+    <section id="library-view" class="view" hidden></section>
+    <section id="reviews-view" class="view" hidden></section>
+    <footer><span>PARALLAX / TRUST IS A TRACE, NOT A SCORE.</span><span>Fictief demomateriaal · Geen officieel SD Worx-beleid</span></footer>
   </main>
+  <dialog id="source-dialog" aria-labelledby="source-dialog-title"><div class="dialog-top"><span class="eyebrow">DE ORIGINELE BRON</span><button id="close-dialog" class="icon-button" aria-label="Sluit bron">×</button></div><div id="source-dialog-content"></div></dialog>
 </body>
 </html>
