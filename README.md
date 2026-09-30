@@ -22,33 +22,38 @@ Om de server te stoppen, druk je op `Ctrl+C` in de terminal waar hij draait.
 
 ## Zo gebruik je de website
 
-De website opent meteen met een voorbeeldvraag over de verwerkingsdeadline.
-Een procedure zegt dinsdag; een Teams-notitie zegt woensdag. PARALLAX toont de
-bronnen naast elkaar en vraagt om een beoordeling in plaats van één antwoord
-te kiezen alsof de tegenspraak niet bestaat.
+De website begint met één vraagveld. Typ je vraag of klik op het voorbeeld
+**Deadline**, **Looncorrectie** of **Klantoverdracht**. Een voorbeeld voert de
+vraag meteen uit; bij een eigen vraag klik je op **Zoek antwoord**.
 
-- **Scenario's** vullen een voorbeeldvraag in en voeren die uit. ‘Het oude
-  draaiboek’ laat zien waarom een vervangen procedure geen actuele onderbouwing
-  vormt. ‘De nieuwe collega’ demonstreert een klantoverdracht.
-- **Land, klant en datum** bepalen de situatie waar de vraag over gaat. De demo
-  Acme-afspraak is alleen van toepassing op Belgische klantvragen.
-- **Bronnenkaart** toont de gevonden passages en geeft aan wie de bron beheert,
-  wanneer de inhoud geldt, of ze formeel is goedgekeurd en of er tegenspraak is.
-  Kies ‘Geldigheid’, ‘Bronhouder’ of ‘Verschillen’ om een signaal uit te lichten.
-  ‘Lees de passage’ opent de oorspronkelijke tekst.
-- **Perspectieven vergelijken** stelt dezelfde vraag voor Nederland en voor een
-  eerdere datum. Zo zie je welke bron of uitkomst met de context mee verandert.
-- **Leg de twijfel voor** bewaart de vraag, context en bronnen als een lokaal
-  expertverzoek. In de tab **Kennislus** kies je voor deze demo een bron en
-  motiveer je die keuze. De interface labelt dit uitdrukkelijk als simulatie;
-  ze verstuurt geen bericht naar een echte expert.
-- Na de beoordeling wordt dezelfde vraag alleen opnieuw beoordeeld als de
-  vraag, het land, de klant, de datum en de gebruikte bronnen gelijk zijn.
-  Verandert een bron, dan vervalt de eerdere beoordeling en komt de tegenspraak
-  terug in beeld.
-- **Bewaar de onderbouwing** downloadt het kennisdossier met de oorspronkelijke
-  vraag, context, bronpassages en eventuele beoordeling.
-- In **Bronnenatlas** kun je alle fictieve documenten bekijken en op land filteren.
+De pagina volgt drie stappen:
+
+1. **Je vraag:** land, klant en datum zijn vooraf ingevuld. Onder ‘Land, klant of
+   datum aanpassen’ kun je ze wijzigen. De demo Acme-afspraak hoort bij België.
+2. **Antwoord:** eerst verschijnt het resultaat. Als bronnen elkaar tegenspreken,
+   toont de pagina bijvoorbeeld ‘dinsdag 12:00’ tegenover ‘woensdag 15:00’ en
+   vraagt ze om bevestiging. Zo is direct duidelijk waarom er nog geen zeker
+   antwoord is.
+3. **Gebruikte bronnen:** onder het antwoord staan de documenten, met hun
+   goedkeuringsstatus en een korte tekst. ‘Lees volledige bron’ opent alle
+   informatie over het document.
+
+Bij twijfel kies je **Vraag een beoordeling**. Je verzoek wordt lokaal opgeslagen.
+Via **Beoordelingen** klap je **Beoordeling invullen** open. Daar kun je voor deze
+demo een bron kiezen en je keuze motiveren.
+Daarna kun je het beoordeelde antwoord opnieuw bekijken. De beoordeling wordt
+alleen hergebruikt bij dezelfde vraag en context, zolang de bronnen niet veranderen.
+Er worden geen echte experts gecontacteerd.
+
+De extra mogelijkheden staan onder het antwoord:
+
+- Klap **Vergelijk een ander land of een eerdere datum** open om dezelfde vraag
+  in twee andere situaties te bekijken.
+- Kies **Download antwoord en bronnen** om de onderbouwing te bewaren.
+- Via **Bronnen** in het menu kun je alle fictieve documenten bekijken.
+
+De interface toont geen bronnenkaart, lenzen of tellers meer. De hoofdpagina
+blijft gericht op de vraag, het antwoord en de gebruikte bronnen.
 
 ## Hoe de website in elkaar zit
 
@@ -76,7 +81,7 @@ De routes zijn:
 | Route | Doel |
 | --- | --- |
 | `POST /api/ask` | Beantwoord de vraag en bewaar een momentopname van de gevonden bronnen. |
-| `GET /api/sources` | Toon de bronnenatlas. |
+| `GET /api/sources` | Toon het bronnenoverzicht. |
 | `GET /api/assessments/{id}/compare` | Vergelijk dezelfde vraag met een ander land of een eerdere datum. |
 | `GET /api/assessments/{id}/receipt` | Download het kennisdossier als Markdown. |
 | `POST /api/reviews` | Leg een lokaal beoordelingsverzoek vast voor een momentopname. |
@@ -97,7 +102,7 @@ conflict tonen als de bronnen dezelfde gestructureerde claim delen. Verschillend
 landen, geldigheidsperioden en klantbereiken worden bij die vergelijking
 meegewogen.
 
-Een onderzoek wordt als momentopname met bronvingerafdruk opgeslagen. De Kennislus
+Een onderzoek wordt als momentopname met bronvingerafdruk opgeslagen. De beoordelingsfunctie
 kan een gemotiveerde keuze koppelen aan die momentopname. Als de gebruikte bronnen
 veranderen, vervalt de keuze automatisch. De export gebruikt de opgeslagen
 momentopname, zodat een later gewijzigde bron het eerdere dossier niet herschrijft.

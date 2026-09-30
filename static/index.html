@@ -1,53 +1,60 @@
 <!doctype html>
 <html lang="nl">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#172822">
-  <title>PARALLAX — Kennis in perspectief</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#234b39">
+  <title>PARALLAX — Vraag en antwoord</title>
   <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/static/style.css"><script src="/static/app.js" defer></script>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
 </head>
 <body>
-  <aside class="rail">
-    <a class="brand" href="/" aria-label="Parallax home"><span class="brand-symbol" aria-hidden="true">◒</span>parallax<span class="brand-dot">.</span></a>
-    <p class="brand-sub">KENNIS IN PERSPECTIEF</p>
-    <div class="rail-label">WERKRUIMTE</div>
-    <nav aria-label="Werkruimte">
-      <button class="nav-item active" data-tab="investigate" aria-pressed="true"><span>◎</span> Onderzoek <span class="nav-index">01</span></button>
-      <button class="nav-item" data-tab="library" aria-pressed="false"><span>▤</span> Bronnenatlas <span class="nav-index">02</span></button>
-      <button class="nav-item" data-tab="reviews" aria-pressed="false"><span>↺</span> Kennislus <span id="review-count" class="nav-index">03</span></button>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Parallax home">◒ <strong>parallax</strong></a>
+    <nav aria-label="Hoofdnavigatie">
+      <button class="nav-item active" data-tab="investigate" aria-pressed="true">Vraag stellen</button>
+      <button class="nav-item" data-tab="library" aria-pressed="false">Bronnen</button>
+      <button class="nav-item" data-tab="reviews" aria-pressed="false">Beoordelingen <span id="review-count" hidden></span></button>
     </nav>
-    <div class="rail-note"><span class="orbit" aria-hidden="true">↗</span><p>De beste kennis laat zien<br><em>waar de twijfel zit.</em></p><span>Find it. Understand it. Trust it.</span></div>
-    <button id="guide-button" class="guide-button">▷ De demo in 3 stappen</button>
-    <div class="rail-bottom"><span class="live-dot"></span> Lokaal demolab<br><small>SD Worx challenge · Tectonic</small></div>
-  </aside>
+    <span class="demo-label">Demo met fictieve gegevens</span>
+  </header>
   <main>
-    <header class="topline"><span>ORGANISATIONAL KNOWLEDGE / EXPLORER</span><span class="lab-pill">FICTIEVE BRONNEN <span>↗</span></span></header>
-    <div id="error" class="error" role="alert" hidden></div>
-    <section id="guide" class="guide" hidden aria-label="Demoroute">
-      <strong>Van twijfel naar gedeelde kennis, in drie stappen.</strong>
-      <ol><li>Kies ‘De verschoven deadline’ en open beide bronpassages.</li><li>Vergelijk met een andere datum of Nederland. Zie waarom context telt.</li><li>Maak een expertverzoek, beoordeel het in de Kennislus en onderzoek opnieuw.</li></ol>
-      <p>Alle beoordelingen zijn simulaties. Er wordt niemand gecontacteerd.</p>
-    </section>
+    <div id="error" class="error" role="alert" tabindex="-1" hidden></div>
     <section id="investigate-view" class="view">
-      <div class="page-heading"><div><div class="eyebrow">01 — ONDERZOEK</div><h1>Kennis heeft<br><em>meer dan één kant.</em></h1></div><p>Een document zegt dinsdag. Een collega zegt woensdag.<br>Ontdek wat geldt, waarom het verschilt<br>en wie de twijfel kan wegnemen.</p></div>
-      <div class="scenarios" aria-label="Demo-scenario's">
-        <button data-scenario="deadline" class="scenario selected"><span class="scenario-number">01</span><span>De verschoven deadline<small>Een procedure. Een chat. Een conflict.</small></span><span class="scenario-arrow">↗</span></button>
-        <button data-scenario="correction" class="scenario"><span class="scenario-number">02</span><span>Het oude draaiboek<small>Gevonden is nog niet geldig.</small></span><span class="scenario-arrow">↗</span></button>
-        <button data-scenario="handover" class="scenario"><span class="scenario-number">03</span><span>De nieuwe collega<small>Welke kennis reist mee?</small></span><span class="scenario-arrow">↗</span></button>
+      <div class="page-heading">
+        <h1>Waar zoek je een antwoord op?</h1>
+        <p>Stel een vraag. Bekijk het antwoord en de bronnen waarop het is gebaseerd.</p>
       </div>
       <form id="question-form" class="question-box">
-        <label for="question" class="eyebrow">HET MOMENT VAN TWIJFEL</label>
-        <div class="question-row"><input id="question" type="text" minlength="3" maxlength="1000" required value="Wat is de deadline voor de maandelijkse verwerking?" placeholder="Welke kennis heb je nodig?"><button id="ask-button" class="primary" type="submit">Onderzoek <span>↗</span></button></div>
-        <div class="context-controls"><div><label for="country">Land</label><select id="country"><option value="BE">België</option><option value="NL">Nederland</option></select></div><span class="control-divider"></span><div><label for="client">Klant</label><select id="client"><option value="">Algemeen</option><option value="demo-acme">Demo Acme</option></select></div><span class="control-divider"></span><div><label for="as-of">Geldig op</label><input id="as-of" type="date" value="2026-09-30" required min="2000-01-01" max="2100-12-31"></div><span class="context-tip">Context bepaalt welke kennis geldt.</span></div>
+        <label for="question" class="section-label"><span class="step">1</span> Je vraag</label>
+        <textarea id="question" minlength="3" maxlength="1000" required rows="2" placeholder="Bijvoorbeeld: Wat is de deadline voor de maandelijkse verwerking?"></textarea>
+        <div class="example-row" aria-label="Voorbeeldvragen">
+          <span>Probeer een voorbeeld:</span>
+          <button type="button" data-scenario="deadline">Deadline</button>
+          <button type="button" data-scenario="correction">Looncorrectie</button>
+          <button type="button" data-scenario="handover">Klantoverdracht</button>
+        </div>
+        <details id="context-options" class="context-options">
+          <summary>Land, klant of datum aanpassen <span id="context-summary">België · Algemeen · 30 september 2026</span></summary>
+          <div class="context-controls">
+            <div><label for="country">Land</label><select id="country"><option value="BE">België</option><option value="NL">Nederland</option></select></div>
+            <div><label for="client">Klant</label><select id="client"><option value="">Algemeen</option><option value="demo-acme">Demo Acme</option></select></div>
+            <div><label for="as-of">Datum waarop de informatie moet gelden</label><input id="as-of" type="date" value="2026-09-30" required min="2000-01-01" max="2100-12-31"></div>
+          </div>
+        </details>
+        <button id="ask-button" class="primary" type="submit">Zoek antwoord <span aria-hidden="true">→</span></button>
       </form>
-      <div id="loading" class="loading" role="status" hidden><span class="spinner"></span> Bronnen verbinden en context controleren…</div>
+      <div id="loading" class="loading" role="status" hidden><span class="spinner" aria-hidden="true"></span> We zoeken het antwoord en controleren de bronnen…</div>
       <div id="result" aria-live="polite"></div>
     </section>
     <section id="library-view" class="view" hidden></section>
     <section id="reviews-view" class="view" hidden></section>
-    <footer><span>PARALLAX / TRUST IS A TRACE, NOT A SCORE.</span><span>Fictief demomateriaal · Geen officieel SD Worx-beleid</span></footer>
+    <footer>Dit is een demo met voorbeeldprocedures. Er worden geen echte experts gecontacteerd.</footer>
   </main>
-  <dialog id="source-dialog" aria-labelledby="source-dialog-title"><div class="dialog-top"><span class="eyebrow">DE ORIGINELE BRON</span><button id="close-dialog" class="icon-button" aria-label="Sluit bron">×</button></div><div id="source-dialog-content"></div></dialog>
+  <dialog id="source-dialog" aria-labelledby="source-dialog-title">
+    <div class="dialog-top"><span>Volledige bron</span><button id="close-dialog" class="icon-button" aria-label="Sluit bron">×</button></div>
+    <div id="source-dialog-content"></div>
+  </dialog>
 </body>
 </html>
