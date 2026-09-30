@@ -1,0 +1,17 @@
+{
+  "name": "PARALLAX",
+  "install": "if ! python3 -c 'import ensurepip' >/dev/null 2>&1; then sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python3-venv; fi && python3 -m venv .venv && .venv/bin/python -m pip install --disable-pip-version-check -r requirements-dev.txt",
+  "terminals": [
+    {
+      "name": "Web",
+      "command": ".venv/bin/python -m uvicorn app:app --host 127.0.0.1 --port 8000",
+      "description": "PARALLAX website and API at http://127.0.0.1:8000"
+    }
+  ],
+  "ports": [
+    {
+      "name": "web",
+      "port": 8000
+    }
+  ]
+}
