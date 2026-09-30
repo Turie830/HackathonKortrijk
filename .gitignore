@@ -183,3 +183,7 @@ cython_debug/
 # Local knowledge database and review requests
 data/*.sqlite3
 data/*.sqlite3-*
+
+# Local demo secrets and caches (generated on first start, never committed)
+data/demo-login.txt
+data/.pseudo_secret

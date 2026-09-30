@@ -58,17 +58,32 @@ def initialize(database=DATABASE):
                 created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
             );
         """)
-        columns = {row["name"] for row in db.execute("PRAGMA table_info(reviews)")}
-        for column in ("assessment_id", "decision_id"):
-            if column not in columns:
-                db.execute(f"ALTER TABLE reviews ADD COLUMN {column} TEXT")
+        # Columns added after the first demo. Table and column names are fixed, never user input.
+        for table, column in (("reviews", "assessment_id"), ("reviews", "decision_id"),
+                              ("reviews", "requested_by"), ("reviews", "resolved_by"), ("reviews", "note"),
+                              ("assessments", "user_id")):
+            if column not in {row["name"] for row in db.execute(f"PRAGMA table_info({table})")}:
+                db.execute(f"ALTER TABLE {table} ADD COLUMN {column} TEXT")
         if db.execute("SELECT COUNT(*) FROM sources").fetchone()[0] == 0:
             for source in json.loads(SEED.read_text()):
-                db.execute("INSERT INTO sources VALUES (?, ?)",
-                           (source["id"], json.dumps(source)))
-                for passage in source["passages"]:
-                    db.execute("INSERT INTO passages VALUES (?, ?, ?, ?)",
-                               (source["id"], passage["section"], source["title"], passage["text"]))
+                add_source(db, source)
+
+
+def add_source(db, source):
+    db.execute("INSERT INTO sources VALUES (?, ?)", (source["id"], json.dumps(source)))
+    for passage in source["passages"]:
+        db.execute("INSERT INTO passages VALUES (?, ?, ?, ?)",
+                   (source["id"], passage["section"], source["title"], passage["text"]))
+
+
+def reset(database=DATABASE):
+    """Demo reset: the original sources, without dossiers or reviews."""
+    initialize(database)
+    with connect(database) as db:
+        db.executescript("""
+            DELETE FROM sources; DELETE FROM passages; DELETE FROM assessments;
+            DELETE FROM decisions; DELETE FROM reviews;""")
+    initialize(database)
 
 
 def sources(database=DATABASE):
@@ -77,9 +92,14 @@ def sources(database=DATABASE):
                 db.execute("SELECT payload FROM sources ORDER BY id")]
 
 
-def applicable(source, country, client_id):
+STATUTES = ("alle", "arbeider", "bediende")
+
+
+def applicable(source, country, client_id, statute="alle"):
+    """Statute 'alle' means unknown: statute-specific sources stay visible."""
     return (source["country"] in (country, "ALL")
-            and source["client_id"] in (None, client_id))
+            and source["client_id"] in (None, client_id)
+            and (statute == "alle" or source.get("statute", "ALL") in ("ALL", statute)))
 
 
 def valid_at(source, as_of):
@@ -101,10 +121,24 @@ SYNONYMS = {
     "goedkeuring": ["goedkeuring", "goedkeuren", "akkoord"],
     "deadline": ["deadline", "uiterste", "termijn", "tijdstip"],
     "archiveren": ["archiveren", "archivering", "archiveringsprocedure", "gearchiveerd"],
+    "vakantiegeld": ["vakantiegeld", "vakantiebijslag", "vakantieattest", "vertrekvakantiegeld", "vakantiekas"],
+    "eindejaarspremie": ["eindejaarspremie", "dertiende"],
+    "indexering": ["indexering", "index", "geindexeerd", "indexeren"],
+    "maaltijdcheques": ["maaltijdcheques", "maaltijdcheque"],
+    "ecocheques": ["ecocheques", "ecocheque"],
+    "ziekte": ["ziekte", "ziek", "gewaarborgd", "arbeidsongeschiktheid", "herval", "loondoorbetaling"],
+    "werkloosheid": ["werkloosheid", "werkloos"],
+    "overuren": ["overuren", "overuur", "overwerk", "inhaalrust", "overloon"],
+    "loonbeslag": ["loonbeslag", "loonbeslagen", "beslag", "beslagbaar", "beslagbare"],
+    "opzeg": ["opzeg", "opzegtermijn", "opzeggingsvergoeding", "ontslag", "outplacement"],
+    "fiscaal": ["fiscale", "fiche"],
+    "woon_werk": ["fietsvergoeding", "fiets", "treinabonnement", "openbaar", "woon"],
+    "bedrijfswagen": ["bedrijfswagen", "bedrijfswagens"],
+    "flexi": ["flexi", "flexijob", "flexiloon", "flexijobber"],
 }
 
 
-def search(question, country, client_id, as_of, database=DATABASE):
+def search(question, country, client_id, as_of, database=DATABASE, statute="alle"):
     """Scope filtering is part of the SQL query, before returning passages."""
     raw_tokens = set(re.findall(r"\w+", question.lower()))
     tokens = raw_tokens - STOPWORDS
@@ -130,8 +164,9 @@ def search(question, country, client_id, as_of, database=DATABASE):
             AND json_extract(s.payload, '$.country') IN (?, 'ALL')
             AND (json_extract(s.payload, '$.client_id') IS NULL
                  OR json_extract(s.payload, '$.client_id') = ?)
+            AND (? = 'alle' OR COALESCE(json_extract(s.payload, '$.statute'), 'ALL') IN ('ALL', ?))
             ORDER BY rank
-        """, (expression, country, client_id)).fetchall()
+        """, (expression, country, client_id, statute, statute)).fetchall()
     candidates = []
     all_sources = sources(database)
     # Fetch counterpart claims as well: different wording must not hide a conflict.
@@ -140,7 +175,7 @@ def search(question, country, client_id, as_of, database=DATABASE):
     found = {(row["source_id"], row["section"]) for row in rows}
     rows = list(rows)
     for source in all_sources:
-        if not applicable(source, country, client_id):
+        if not applicable(source, country, client_id, statute):
             continue
         for passage in source["passages"]:
             keys = source.get("claims", {}).get(passage["section"], {})
@@ -151,7 +186,7 @@ def search(question, country, client_id, as_of, database=DATABASE):
         source = json.loads(row["payload"])
         replacements = [item["id"] for item in all_sources
                         if source["id"] in item.get("supersedes", [])
-                        and applicable(item, country, client_id)
+                        and applicable(item, country, client_id, statute)
                         and date.fromisoformat(item["valid_from"]) <= as_of and item["approved"]]
         warnings = []
         if not valid_at(source, as_of):
@@ -168,6 +203,7 @@ def search(question, country, client_id, as_of, database=DATABASE):
             "section": row["section"], "text": row["text"],
             "owner": source["owner"], "approved": source["approved"],
             "country": source["country"], "client_id": source["client_id"],
+            "statute": source.get("statute", "ALL"), "topic": source.get("topic"),
             "valid_from": source["valid_from"], "valid_until": source["valid_until"],
             "updated_at": source["updated_at"], "kind": source["kind"],
             "warnings": warnings, "usable": not warnings,
@@ -198,7 +234,7 @@ def conflicts(passages):
     result = []
     for key, entries in grouped.items():
         if len({json.dumps(value, sort_keys=True) for value, _ in entries}) > 1:
-            scopes = {(p["country"], p["client_id"]) for _, p in entries}
+            scopes = {(p["country"], p["client_id"], p.get("statute", "ALL")) for _, p in entries}
             result.append({"topic": key, "scope_difference": len(scopes) > 1, "evidence": [
                 {"value": value, "citation": passage["citation"],
                  "text": passage["text"], "title": passage["title"],
@@ -214,18 +250,18 @@ def fingerprint(passages):
                                     sort_keys=True, ensure_ascii=False).encode()).hexdigest()
 
 
-def question_key(question, country, client_id, as_of):
+def question_key(question, country, client_id, as_of, statute="alle"):
     normalized = " ".join(re.findall(r"\w+", question.lower()))
-    return hashlib.sha256(json.dumps([normalized, country, client_id, as_of.isoformat()]).encode()).hexdigest()
+    return hashlib.sha256(json.dumps([normalized, country, client_id, as_of.isoformat(), statute]).encode()).hexdigest()
 
 
-def answer_question(question, country, client_id, as_of, database=DATABASE):
-    passages = search(question, country, client_id, as_of, database)
+def answer_question(question, country, client_id, as_of, database=DATABASE, statute="alle"):
+    passages = search(question, country, client_id, as_of, database, statute)
     contradictions = conflicts(passages)
     supported = [p for p in passages if p["usable"]]
     conflict_refs = {e["citation"] for c in contradictions for e in c["evidence"]}
     current_fingerprint = fingerprint(passages)
-    key = question_key(question, country, client_id, as_of)
+    key = question_key(question, country, client_id, as_of, statute)
     with connect(database) as db:
         decision_row = db.execute("SELECT * FROM decisions WHERE question_key = ? ORDER BY rowid DESC LIMIT 1", (key,)).fetchone()
     decision = dict(decision_row) if decision_row else None
@@ -259,15 +295,17 @@ def answer_question(question, country, client_id, as_of, database=DATABASE):
         passage["checks"]["agreement"] = not passage["in_conflict"]
     excluded = []
     for source in sources(database):
-        if not applicable(source, country, client_id):
-            excluded.append({"source_id": source["id"], "title": source["title"],
-                             "reason": "Ander land" if source["country"] not in (country, "ALL") else "Andere klant",
+        if not applicable(source, country, client_id, statute):
+            reason = ("Ander land" if source["country"] not in (country, "ALL") else
+                      "Andere klant" if source["client_id"] not in (None, client_id) else "Ander statuut")
+            excluded.append({"source_id": source["id"], "title": source["title"], "reason": reason,
                              "country": source["country"], "client_id": source["client_id"]})
     return {
         "answer": answer, "status": status, "mode": "extractive", "citations": citations,
         "needs_review": status not in ("supported", "reviewed"), "conflicts": contradictions,
         "sources": [{k: v for k, v in p.items() if k != "claims"} for p in passages],
-        "expert": expert, "context": {"country": country, "client_id": client_id, "as_of": as_of.isoformat()},
+        "expert": expert, "context": {"country": country, "client_id": client_id, "statute": statute,
+                                      "as_of": as_of.isoformat()},
         "fingerprint": current_fingerprint, "question_key": key, "question": question,
         "decision": decision if decision_current else None,
         "stale_decision": bool(decision and not decision_current), "excluded": excluded,
@@ -278,16 +316,16 @@ def answer_question(question, country, client_id, as_of, database=DATABASE):
     }
 
 
-def save_assessment(result, database=DATABASE):
+def save_assessment(result, database=DATABASE, user_id=None):
     assessment_id = "PX-" + uuid.uuid4().hex[:12].upper()
     result["assessment_id"] = assessment_id
     with connect(database) as db:
         db.execute("""INSERT INTO assessments
-            (id, question_key, question, country, client_id, as_of, snapshot, fingerprint)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)""", (
+            (id, question_key, question, country, client_id, as_of, snapshot, fingerprint, user_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""", (
                 assessment_id, result["question_key"], result["question"],
                 result["context"]["country"], result["context"]["client_id"], result["context"]["as_of"],
-                json.dumps(result, ensure_ascii=False), result["fingerprint"],
+                json.dumps(result, ensure_ascii=False), result["fingerprint"], user_id,
             ))
     return result
 
@@ -300,7 +338,23 @@ def get_assessment(assessment_id, database=DATABASE):
     return json.loads(row["snapshot"])
 
 
-def request_assessment_review(assessment_id, database=DATABASE):
+def assessment_owner(assessment_id, database=DATABASE):
+    with connect(database) as db:
+        row = db.execute("SELECT user_id FROM assessments WHERE id = ?", (assessment_id,)).fetchone()
+    if not row:
+        raise LookupError("Dit kennisdossier bestaat niet.")
+    return row["user_id"]
+
+
+def get_review(review_id, database=DATABASE):
+    with connect(database) as db:
+        row = db.execute("SELECT * FROM reviews WHERE id = ?", (review_id,)).fetchone()
+    if not row:
+        raise LookupError("Dit verzoek bestaat niet.")
+    return dict(row)
+
+
+def request_assessment_review(assessment_id, database=DATABASE, requested_by=None, note=None):
     result = get_assessment(assessment_id, database)
     context = result["context"]
     with connect(database) as db:
@@ -309,16 +363,16 @@ def request_assessment_review(assessment_id, database=DATABASE):
         if existing:
             return dict(existing)
         cursor = db.execute("""INSERT INTO reviews
-            (question, country, client_id, as_of, source_ids, reason, expert, assessment_id)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)""", (
+            (question, country, client_id, as_of, source_ids, reason, expert, assessment_id, requested_by, note)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (
                 result["question"], context["country"], context["client_id"], context["as_of"],
                 json.dumps([p["source_id"] for p in result["sources"]]),
-                result["status"], result["expert"], assessment_id,
+                result["status"], result["expert"], assessment_id, requested_by, note,
             ))
         return {"id": cursor.lastrowid, "status": "open", "expert": result["expert"]}
 
 
-def resolve_review(review_id, citation, rationale, database=DATABASE):
+def resolve_review(review_id, citation, rationale, database=DATABASE, resolved_by=None):
     rationale = rationale.strip()
     if not 20 <= len(rationale) <= 2000:
         raise ValueError("Licht je beoordeling toe in 20 tot 2000 tekens.")
@@ -333,7 +387,8 @@ def resolve_review(review_id, citation, rationale, database=DATABASE):
             raise ValueError("Maak een nieuw dossier voor dit oudere verzoek.")
         snapshot_row = db.execute("SELECT snapshot FROM assessments WHERE id = ?", (row["assessment_id"],)).fetchone()
         snapshot = json.loads(snapshot_row["snapshot"])
-        current = answer_question(row["question"], row["country"], row["client_id"], date.fromisoformat(row["as_of"]), database)
+        current = answer_question(row["question"], row["country"], row["client_id"], date.fromisoformat(row["as_of"]),
+                                  database, snapshot["context"].get("statute", "alle"))
         if current["fingerprint"] != snapshot["fingerprint"]:
             raise ValueError("De bronnen zijn gewijzigd. Onderzoek de vraag opnieuw voordat je beoordeelt.")
         if len(snapshot["conflicts"]) > 1:
@@ -349,23 +404,30 @@ def resolve_review(review_id, citation, rationale, database=DATABASE):
             (id, assessment_id, question_key, citation, rationale, fingerprint)
             VALUES (?, ?, ?, ?, ?, ?)""", (decision_id, row["assessment_id"], snapshot["question_key"],
                                           citation, rationale, snapshot["fingerprint"]))
-        db.execute("UPDATE reviews SET status = 'resolved', decision_id = ? WHERE id = ?", (decision_id, review_id))
+        db.execute("UPDATE reviews SET status = 'resolved', decision_id = ?, resolved_by = ? WHERE id = ?",
+                   (decision_id, resolved_by, review_id))
     return {"id": decision_id, "citation": citation, "rationale": rationale, "status": "resolved"}
 
 
 def compare_contexts(assessment_id, database=DATABASE):
     original = get_assessment(assessment_id, database)
     context = original["context"]
+    statute = context.get("statute", "alle")
     alternatives = [
         {"label": "Zelfde vraag, ander land", "country": "NL" if context["country"] == "BE" else "BE",
-         "client_id": None, "as_of": date.fromisoformat(context["as_of"])},
+         "client_id": None, "as_of": date.fromisoformat(context["as_of"]), "statute": statute},
     ]
+    if statute in ("arbeider", "bediende") and context["country"] == "BE":
+        alternatives.append({"label": "Zelfde vraag, ander statuut", "country": context["country"],
+                             "client_id": context["client_id"], "as_of": date.fromisoformat(context["as_of"]),
+                             "statute": "bediende" if statute == "arbeider" else "arbeider"})
     starts = sorted({date.fromisoformat(s["valid_from"]) for s in original["sources"]
                      if s["valid_from"] <= context["as_of"]})
     if starts:
         from datetime import timedelta
         alternatives.append({"label": "Vóór de recentste geldigheidsstart", "country": context["country"],
-                             "client_id": context["client_id"], "as_of": starts[-1] - timedelta(days=1)})
+                             "client_id": context["client_id"], "as_of": starts[-1] - timedelta(days=1),
+                             "statute": statute})
     output = []
     for alternative in alternatives:
         label = alternative.pop("label")
@@ -384,7 +446,8 @@ def receipt_markdown(assessment_id, database=DATABASE):
         return str(value).replace("<", "&lt;").replace(">", "&gt;").replace("[", "\\[").replace("]", "\\]")
     lines = [f"# PARALLAX · {assessment_id}", "", "Fictief demodossier, geen officieel beleid.", "",
              "## Vraag", safe(result["question"]), "", "## Context",
-             f"Land: {result['context']['country']} · Klant: {result['context']['client_id'] or 'algemeen'} · Datum: {result['context']['as_of']}",
+             f"Land: {result['context']['country']} · Klant: {result['context']['client_id'] or 'algemeen'} · "
+             f"Statuut: {result['context'].get('statute', 'alle')} · Datum: {result['context']['as_of']}",
              "", f"Status bij onderzoek: {result['status']}", "", "## Antwoord", safe(result["answer"])]
     if result["decision"]:
         lines += ["", "## Demo-beoordeling", safe(result["decision"]["rationale"])]
@@ -393,6 +456,10 @@ def receipt_markdown(assessment_id, database=DATABASE):
         lines += ["", f"### {safe(source['title'])}", f"Referentie: {safe(source['citation'])}",
                   f"Eigenaar: {safe(source['owner'] or 'onbekend')}", safe(source["text"]),
                   "Signalen: " + safe(", ".join(source["warnings"]) or "Metadata gecontroleerd")]
+        if source.get("trust"):
+            trust = source["trust"]
+            lines.append("Trackrecord: " + safe(" · ".join(filter(None, [
+                trust.get("quadrant_label"), trust.get("headline"), trust.get("warning")]))))
     for conflict in result["conflicts"]:
         lines += ["", "## Verschil: " + safe(conflict["topic"])]
         lines += [f"- {safe(e['value'])} ({safe(e['citation'])})" for e in conflict["evidence"]]
@@ -412,16 +479,26 @@ def create_review(question, country, client_id, as_of, result, database=DATABASE
         return {"id": cursor.lastrowid, "status": "open", "expert": result["expert"]}
 
 
-def reviews(database=DATABASE):
+def reviews(database=DATABASE, requested_by=None, experts=None):
+    """All reviews, or only those requested by one user, or assigned to some expert teams."""
+    query, params = "SELECT * FROM reviews", []
+    if requested_by is not None:
+        query, params = query + " WHERE requested_by = ?", [requested_by]
+    elif experts is not None:
+        experts = list(experts)
+        query += f" WHERE expert IN ({', '.join('?' for _ in experts)})" if experts else " WHERE 0"
+        params = experts
     with connect(database) as db:
-        entries = [dict(row) for row in db.execute("SELECT * FROM reviews ORDER BY id DESC")]
+        entries = [dict(row) for row in db.execute(query + " ORDER BY id DESC", params)]
         for entry in entries:
             entry["candidates"] = []
             entry["decision"] = None
+            entry["statute"] = "alle"
             if entry["assessment_id"]:
                 snapshot = db.execute("SELECT snapshot FROM assessments WHERE id = ?", (entry["assessment_id"],)).fetchone()
                 if snapshot:
                     result = json.loads(snapshot["snapshot"])
+                    entry["statute"] = result["context"].get("statute", "alle")
                     entry["candidates"] = [p for p in result["sources"] if p["active"] and p["owner"]]
             if entry["decision_id"]:
                 decision = db.execute("SELECT * FROM decisions WHERE id = ?", (entry["decision_id"],)).fetchone()

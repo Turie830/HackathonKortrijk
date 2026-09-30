@@ -1,0 +1,32 @@
+{
+  "seeds": 20,
+  "planted_total": 80,
+  "per_source": {
+    "BE-VAKANTIEGELD": 20,
+    "BE-EINDEJAARSPREMIE": 20,
+    "BE-LOONBESLAG": 15,
+    "BE-MAALTIJDCHEQUES": 12
+  },
+  "found": 67,
+  "false_alarms": 2,
+  "normal_total": 620,
+  "segment_correct": 20,
+  "gap_found": 20,
+  "false_gaps": 0,
+  "median_days_to_detect_change": 42.0,
+  "missed_change": 6,
+  "median_days_to_detect_change_no_recency": 49.0,
+  "missed_change_no_recency": 8,
+  "median_uses_to_detect_vakantiegeld": 12.5,
+  "ablations": {
+    "zonder_afvlakking_en_minimum_bewijs": {
+      "found": 67,
+      "false_alarms": 213
+    },
+    "zonder_recentheid": {
+      "found": 72,
+      "false_alarms": 11
+    }
+  },
+  "first_seed": 101
+}

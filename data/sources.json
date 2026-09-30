@@ -1,66 +1,810 @@
 [
   {
-    "id": "BE-HANDOVER-2026", "title": "Goedgekeurde klantoverdracht · België", "kind": "Procedure",
-    "country": "BE", "client_id": null, "owner": "Payroll Operations", "approved": true,
-    "valid_from": "2026-01-01", "valid_until": null, "updated_at": "2026-09-01",
+    "id": "BE-HANDOVER-2026",
+    "title": "Goedgekeurde klantoverdracht · België",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "overdracht",
+    "owner": "Payroll Operations",
+    "approved": true,
+    "valid_from": "2026-01-01",
+    "valid_until": null,
+    "updated_at": "2026-09-01",
     "supersedes": [],
-    "passages": [{"section": "1", "text": "Bij een klantoverdracht vult de vertrekkende consultant het overdrachtsformulier in. De nieuwe consultant controleert openstaande vragen, klantafspraken en de laatste verwerkingsstatus. De teamlead bevestigt de overdracht voordat de nieuwe consultant het dossier zelfstandig behandelt. Dit is een fictieve demoprocedure."}],
-    "claims": {"1": {"overdracht_bevestiging": "teamlead"}}
+    "passages": [
+      {
+        "section": "1",
+        "text": "Bij een klantoverdracht vult de vertrekkende consultant het overdrachtsformulier in. De nieuwe consultant controleert openstaande vragen, klantafspraken en de laatste verwerkingsstatus. De teamlead bevestigt de overdracht voordat de nieuwe consultant het dossier zelfstandig behandelt. Dit is een fictieve demoprocedure."
+      }
+    ],
+    "claims": {
+      "1": {
+        "overdracht_bevestiging": "teamlead"
+      }
+    }
   },
   {
-    "id": "BE-CORRECTION-2025", "title": "Looncorrecties · oude versie", "kind": "Procedure",
-    "country": "BE", "client_id": null, "owner": "Payroll Quality", "approved": true,
-    "valid_from": "2025-01-01", "valid_until": "2025-12-31", "updated_at": "2025-02-01",
+    "id": "BE-CORRECTION-2025",
+    "title": "Looncorrecties · oude versie",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "looncorrectie",
+    "owner": "Payroll Quality",
+    "approved": true,
+    "valid_from": "2025-01-01",
+    "valid_until": "2025-12-31",
+    "updated_at": "2025-02-01",
     "supersedes": [],
-    "passages": [{"section": "1", "text": "Voor een looncorrectie is volgens deze oude demoprocedure geen tweede controle nodig. De consultant kan de correctie rechtstreeks uitvoeren. Deze procedure is vervangen vanaf 1 januari 2026."}],
-    "claims": {"1": {"looncorrectie_controle": "geen tweede controle"}}
+    "passages": [
+      {
+        "section": "1",
+        "text": "Voor een looncorrectie is volgens deze oude demoprocedure geen tweede controle nodig. De consultant kan de correctie rechtstreeks uitvoeren. Deze procedure is vervangen vanaf 1 januari 2026."
+      }
+    ],
+    "claims": {
+      "1": {
+        "looncorrectie_controle": "geen tweede controle"
+      }
+    }
   },
   {
-    "id": "BE-CORRECTION-2026", "title": "Looncorrecties · huidige versie", "kind": "Procedure",
-    "country": "BE", "client_id": null, "owner": "Payroll Quality", "approved": true,
-    "valid_from": "2026-01-01", "valid_until": null, "updated_at": "2026-08-15",
-    "supersedes": ["BE-CORRECTION-2025"],
-    "passages": [{"section": "1", "text": "Voor een looncorrectie controleert een tweede consultant de wijziging en legt die de goedkeuring vast in het dossier voordat de correctie wordt uitgevoerd. Dit is een fictieve demoprocedure, geldig vanaf 1 januari 2026."}],
-    "claims": {"1": {"looncorrectie_controle": "tweede consultant"}}
+    "id": "BE-CORRECTION-2026",
+    "title": "Looncorrecties · huidige versie",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "looncorrectie",
+    "owner": "Payroll Quality",
+    "approved": true,
+    "valid_from": "2026-01-01",
+    "valid_until": null,
+    "updated_at": "2026-08-15",
+    "supersedes": [
+      "BE-CORRECTION-2025"
+    ],
+    "passages": [
+      {
+        "section": "1",
+        "text": "Voor een looncorrectie controleert een tweede consultant de wijziging en legt die de goedkeuring vast in het dossier voordat de correctie wordt uitgevoerd. Dit is een fictieve demoprocedure, geldig vanaf 1 januari 2026."
+      }
+    ],
+    "claims": {
+      "1": {
+        "looncorrectie_controle": "tweede consultant"
+      }
+    }
   },
   {
-    "id": "BE-DEADLINE-POLICY", "title": "Deadline voor maandelijkse verwerking", "kind": "Procedure",
-    "country": "BE", "client_id": null, "owner": "Payroll Planning", "approved": true,
-    "valid_from": "2026-01-01", "valid_until": null, "updated_at": "2026-09-02",
+    "id": "BE-DEADLINE-POLICY",
+    "title": "Deadline voor maandelijkse verwerking",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "deadline",
+    "owner": "Payroll Planning",
+    "approved": true,
+    "valid_from": "2026-01-01",
+    "valid_until": null,
+    "updated_at": "2026-09-02",
     "supersedes": [],
-    "passages": [{"section": "1", "text": "De deadline voor het indienen van wijzigingen voor de maandelijkse verwerking is volgens deze fictieve algemene Belgische procedure dinsdag om 12:00."}],
-    "claims": {"1": {"maandelijkse_deadline": "dinsdag 12:00"}}
+    "passages": [
+      {
+        "section": "1",
+        "text": "De deadline voor het indienen van wijzigingen voor de maandelijkse verwerking is volgens deze fictieve algemene Belgische procedure dinsdag om 12:00."
+      }
+    ],
+    "claims": {
+      "1": {
+        "maandelijkse_deadline": "dinsdag 12:00"
+      }
+    }
   },
   {
-    "id": "BE-DEADLINE-CHAT", "title": "Teams-notitie over de deadline", "kind": "Teams-notitie",
-    "country": "BE", "client_id": null, "owner": "Payroll Planning", "approved": false,
-    "valid_from": "2026-09-01", "valid_until": null, "updated_at": "2026-09-15",
+    "id": "BE-DEADLINE-CHAT",
+    "title": "Teams-notitie over de deadline",
+    "kind": "Teams-notitie",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "deadline",
+    "owner": "Payroll Planning",
+    "approved": false,
+    "valid_from": "2026-09-01",
+    "valid_until": null,
+    "updated_at": "2026-09-15",
     "supersedes": [],
-    "passages": [{"section": "1", "text": "In deze fictieve Teams-notitie zegt een collega dat de algemene Belgische deadline voor wijzigingen voor de maandelijkse verwerking voortaan woensdag om 15:00 is. Er is geen formele goedkeuring vastgelegd."}],
-    "claims": {"1": {"maandelijkse_deadline": "woensdag 15:00"}}
+    "passages": [
+      {
+        "section": "1",
+        "text": "In deze fictieve Teams-notitie zegt een collega dat de algemene Belgische deadline voor wijzigingen voor de maandelijkse verwerking voortaan woensdag om 15:00 is. Er is geen formele goedkeuring vastgelegd."
+      }
+    ],
+    "claims": {
+      "1": {
+        "maandelijkse_deadline": "woensdag 15:00"
+      }
+    }
   },
   {
-    "id": "NL-DEADLINE-POLICY", "title": "Deadline voor maandelijkse verwerking · Nederland", "kind": "Procedure",
-    "country": "NL", "client_id": null, "owner": "Payroll Nederland", "approved": true,
-    "valid_from": "2026-01-01", "valid_until": null, "updated_at": "2026-08-01",
+    "id": "NL-DEADLINE-POLICY",
+    "title": "Deadline voor maandelijkse verwerking · Nederland",
+    "kind": "Procedure",
+    "country": "NL",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "deadline",
+    "owner": "Payroll Nederland",
+    "approved": true,
+    "valid_from": "2026-01-01",
+    "valid_until": null,
+    "updated_at": "2026-08-01",
     "supersedes": [],
-    "passages": [{"section": "1", "text": "De deadline voor wijzigingen voor de maandelijkse verwerking in Nederland is volgens deze fictieve demoprocedure donderdag om 10:00. Deze procedure geldt uitsluitend voor Nederland."}],
-    "claims": {"1": {"maandelijkse_deadline": "donderdag 10:00"}}
+    "passages": [
+      {
+        "section": "1",
+        "text": "De deadline voor wijzigingen voor de maandelijkse verwerking in Nederland is volgens deze fictieve demoprocedure donderdag om 10:00. Deze procedure geldt uitsluitend voor Nederland."
+      }
+    ],
+    "claims": {
+      "1": {
+        "maandelijkse_deadline": "donderdag 10:00"
+      }
+    }
   },
   {
-    "id": "ACME-HANDOVER", "title": "Aanvulling klantoverdracht · Demo Acme", "kind": "Klantafspraak",
-    "country": "BE", "client_id": "demo-acme", "owner": "Demo Acme accountteam", "approved": true,
-    "valid_from": "2026-01-01", "valid_until": null, "updated_at": "2026-09-05",
+    "id": "ACME-HANDOVER",
+    "title": "Aanvulling klantoverdracht · Demo Acme",
+    "kind": "Klantafspraak",
+    "country": "BE",
+    "client_id": "demo-acme",
+    "statute": "ALL",
+    "topic": "overdracht",
+    "owner": "Demo Acme accountteam",
+    "approved": true,
+    "valid_from": "2026-01-01",
+    "valid_until": null,
+    "updated_at": "2026-09-05",
     "supersedes": [],
-    "passages": [{"section": "1", "text": "Bij een klantoverdracht voor Demo Acme wordt aanvullend een introductiegesprek met de klantcontactpersoon gepland. De algemene Belgische overdrachtsprocedure blijft van toepassing. Dit is een fictieve klantafspraak."}],
-    "claims": {"1": {"overdracht_introductie": "klantgesprek verplicht"}}
+    "passages": [
+      {
+        "section": "1",
+        "text": "Bij een klantoverdracht voor Demo Acme wordt aanvullend een introductiegesprek met de klantcontactpersoon gepland. De algemene Belgische overdrachtsprocedure blijft van toepassing. Dit is een fictieve klantafspraak."
+      }
+    ],
+    "claims": {
+      "1": {
+        "overdracht_introductie": "klantgesprek verplicht"
+      }
+    }
   },
   {
-    "id": "BE-OWNERLESS", "title": "Notitie over archiveren van dossiers", "kind": "Losse notitie",
-    "country": "BE", "client_id": null, "owner": null, "approved": false,
-    "valid_from": "2026-01-01", "valid_until": null, "updated_at": "2026-03-01",
+    "id": "BE-OWNERLESS",
+    "title": "Notitie over archiveren van dossiers",
+    "kind": "Losse notitie",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "archivering",
+    "owner": null,
+    "approved": false,
+    "valid_from": "2026-01-01",
+    "valid_until": null,
+    "updated_at": "2026-03-01",
     "supersedes": [],
-    "passages": [{"section": "1", "text": "Volgens deze fictieve losse notitie kan een afgesloten dossier worden gearchiveerd. Er is geen eigenaar of goedkeuring bekend. Vraag een expert naar de geldige archiveringsprocedure."}],
+    "passages": [
+      {
+        "section": "1",
+        "text": "Volgens deze fictieve losse notitie kan een afgesloten dossier worden gearchiveerd. Er is geen eigenaar of goedkeuring bekend. Vraag een expert naar de geldige archiveringsprocedure."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "BE-VAKANTIEGELD",
+    "title": "Vakantiegeld: berekening en uitbetaling",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "vakantiegeld",
+    "owner": "Beloning & Voordelen",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "Volgens deze fictieve procedure betaalt de werkgever het enkel en dubbel vakantiegeld uit, meestal bij de verwerking van mei of juni. Bereken het dubbel vakantiegeld op het brutomaandloon van de maand van uitbetaling en verwerk het als afzonderlijke looncode. Controleer vooraf het aantal gelijkgestelde dagen in het vakantiedienstjaar."
+      }
+    ],
+    "claims": {
+      "1": {
+        "vakantiegeld_betaler": "de werkgever"
+      }
+    }
+  },
+  {
+    "id": "BE-VAKANTIEGELD-TEAMS",
+    "title": "Teams-notitie over vakantiegeld van arbeiders",
+    "kind": "Teams-notitie",
+    "country": "BE",
+    "client_id": null,
+    "statute": "arbeider",
+    "topic": "vakantiegeld",
+    "owner": "Beloning & Voordelen",
+    "approved": false,
+    "valid_from": "2026-06-01",
+    "valid_until": null,
+    "updated_at": "2026-06-12",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "In deze fictieve Teams-notitie schrijft een collega dat het vakantiegeld van arbeiders niet door de werkgever wordt uitbetaald, maar door de vakantiekas (RJV of een sectoraal vakantiefonds). Het vakantiegeld van arbeiders hoort dus niet in de loonverwerking. Er is geen formele goedkeuring vastgelegd."
+      }
+    ],
+    "claims": {
+      "1": {
+        "vakantiegeld_betaler": "de vakantiekas"
+      }
+    }
+  },
+  {
+    "id": "BE-VAKANTIEATTEST",
+    "title": "Vakantieattest bij uitdiensttreding",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "bediende",
+    "topic": "vakantiegeld",
+    "owner": "Beloning & Voordelen",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "Bij uitdiensttreding van een bediende betaalt de werkgever volgens deze fictieve procedure het vertrekvakantiegeld uit en levert hij een vakantieattest af met de gewerkte en gelijkgestelde dagen."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "BE-VAKANTIEGELD-CHECKLIST",
+    "title": "Checklist vakantiegeld in de mei-verwerking",
+    "kind": "Checklist",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "vakantiegeld",
+    "owner": "Beloning & Voordelen",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "Controleer vóór de mei-verwerking van het vakantiegeld: het statuut van elke werknemer, gelijkgestelde dagen, deeltijdse prestaties en vakantieattesten van een vorige werkgever."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "BE-EINDEJAARSPREMIE",
+    "title": "Eindejaarspremie: pro-rataberekening",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "eindejaarspremie",
+    "owner": "Beloning & Voordelen",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "Werknemers die niet het volledige jaar in dienst waren, krijgen een eindejaarspremie pro rata. Pas de regels van het bevoegde paritair comité toe en houd rekening met gelijkgestelde periodes."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "BE-EINDEJAARSPREMIE-PC",
+    "title": "Eindejaarspremie per paritair comité",
+    "kind": "Overzicht",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "eindejaarspremie",
+    "owner": "Beloning & Voordelen",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "Fictief overzicht van berekeningsbasis, betaaldatum en anciënniteitsvoorwaarde van de eindejaarspremie per paritair comité, met verwijzing naar de sectorale cao."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "BE-INDEXERING",
+    "title": "Indexering: kalender per paritair comité",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "indexering",
+    "owner": "Beloning & Voordelen",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "Elk paritair comité heeft een eigen indexeringsmechanisme en -moment. Gebruik de fictieve kalender om per klant te bepalen wanneer en met welk percentage de lonen geïndexeerd worden."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "BE-INDEXERING-CONTROLE",
+    "title": "Indexering nakijken na de loonrun",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "indexering",
+    "owner": "Beloning & Voordelen",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "Vergelijk na de loonrun het gemiddelde brutoloon per paritair comité met de vorige maand. Een afwijking van meer dan het verwachte percentage wijst op een ontbrekende of dubbele indexering."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "BE-MAALTIJDCHEQUES",
+    "title": "Maaltijdcheques: werkgevers- en werknemersaandeel",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "maaltijdcheques",
+    "owner": "Beloning & Voordelen",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "Het werkgeversaandeel in de maaltijdcheques bedraagt maximaal het bedrag uit de fictieve parameterlijst van 1 januari; het werknemersaandeel minimaal het wettelijke minimum. Maaltijdcheques worden toegekend per effectief gewerkte dag."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "BE-MAALTIJDCHEQUES-DEELTIJDS",
+    "title": "Maaltijdcheques bij deeltijdse prestaties",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "maaltijdcheques",
+    "owner": "Beloning & Voordelen",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "Bij deeltijdse werknemers wordt het aantal maaltijdcheques berekend op de effectief gepresteerde uren gedeeld door de normale dagelijkse arbeidsduur van een voltijdse werknemer."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "BE-ECOCHEQUES",
+    "title": "Ecocheques: referteperiode en bedrag",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "ecocheques",
+    "owner": "Beloning & Voordelen",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "De referteperiode voor ecocheques loopt normaal van 1 juni tot en met 31 mei. Het bedrag wordt pro rata toegekend volgens de prestaties in de referteperiode."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "BE-GEWAARBORGD-LOON",
+    "title": "Gewaarborgd loon bij ziekte",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "ziekte",
+    "owner": "Afwezigheden & Arbeidsduur",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "De werkgever betaalt gewaarborgd loon tijdens de eerste weken van arbeidsongeschiktheid door ziekte. Kijk het ziektebriefje, de anciënniteit en een eventuele herval binnen 14 dagen na."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "BE-HERVAL",
+    "title": "Herval en nieuwe arbeidsongeschiktheid",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "ziekte",
+    "owner": "Afwezigheden & Arbeidsduur",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "Een nieuwe arbeidsongeschiktheid door ziekte binnen 14 dagen na het einde van de vorige geldt als herval, tenzij de werknemer een attest van een andere ziekte voorlegt."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "BE-TIJDELIJKE-WERKLOOSHEID",
+    "title": "Tijdelijke werkloosheid: aangifte en verwerking",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "werkloosheid",
+    "owner": "Afwezigheden & Arbeidsduur",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "Registreer de dagen tijdelijke werkloosheid in de maand zelf en doe de elektronische aangifte tijdig. Kijk eventuele sectorale aanvullingen na."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "BE-OVERUREN",
+    "title": "Overuren en inhaalrust",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "overuren",
+    "owner": "Afwezigheden & Arbeidsduur",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "Overuren geven recht op inhaalrust en een overloontoeslag. Registreer de overuren in de maand waarin ze gepresteerd zijn."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "BE-VRIJWILLIGE-OVERUREN",
+    "title": "Vrijwillige overuren",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "overuren",
+    "owner": "Afwezigheden & Arbeidsduur",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "Vrijwillige overuren geven geen recht op inhaalrust maar wel op overloon, binnen het jaarlijkse maximum en na schriftelijke instemming van de werknemer."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "BE-LOONBESLAG",
+    "title": "Loonbeslag: beslagbaar deel berekenen",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "loonbeslag",
+    "owner": "Sociaal Juridisch",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "Bereken het beslagbare deel van het loon op het nettoloon met de grensbedragen van de schijven. Pas de verhoging per kind ten laste toe na aanvraag door de werknemer."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "BE-LOONBESLAG-VOLGORDE",
+    "title": "Loonbeslag: volgorde van meerdere beslagen",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "loonbeslag",
+    "owner": "Sociaal Juridisch",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "Bij meerdere loonbeslagen geldt de volgorde van betekening, behalve voor onderhoudsgeld dat voorrang heeft."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "BE-OPZEGTERMIJN",
+    "title": "Opzegtermijn berekenen",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "opzeg",
+    "owner": "Sociaal Juridisch",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "De opzegtermijn hangt af van de anciënniteit op de startdatum van de opzeg. Gebruik de wettelijke tabel en kijk na of een sectorale regeling afwijkt."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "BE-OPZEGGINGSVERGOEDING",
+    "title": "Opzeggingsvergoeding en outplacement",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "opzeg",
+    "owner": "Sociaal Juridisch",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "Bij een opzeggingsvergoeding van minstens 30 weken heeft de werknemer recht op outplacement."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "BE-FISCALE-FICHE",
+    "title": "Fiscale fiche herstellen",
+    "kind": "Werkinstructie",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "fiscaal",
+    "owner": "Sociaal Juridisch",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "Een fout op de fiscale fiche herstel je met een verbeterende fiche met hetzelfde fichenummer."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "BE-FIETSVERGOEDING",
+    "title": "Fietsvergoeding",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "woon_werk",
+    "owner": "Beloning & Voordelen",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "De fietsvergoeding wordt per gereden kilometer woon-werkverkeer toegekend volgens de sectorale of ondernemingsregeling, binnen het fiscaal vrijgestelde maximum."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "BE-OPENBAAR-VERVOER",
+    "title": "Tussenkomst openbaar vervoer",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "woon_werk",
+    "owner": "Beloning & Voordelen",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "De werkgever komt tussen in de kosten van het treinabonnement voor woon-werkverkeer volgens het nationale akkoord of een gunstigere sectorregeling."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "BE-BEDRIJFSWAGEN",
+    "title": "Voordeel alle aard bedrijfswagen",
+    "kind": "Procedure",
+    "country": "BE",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "bedrijfswagen",
+    "owner": "Beloning & Voordelen",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "Het voordeel alle aard van een bedrijfswagen wordt berekend op basis van de cataloguswaarde, de leeftijd van de wagen en de CO2-uitstoot, met een wettelijk minimum per jaar."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "NL-VAKANTIEBIJSLAG",
+    "title": "Vakantiebijslag · Nederland",
+    "kind": "Procedure",
+    "country": "NL",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "vakantiegeld",
+    "owner": "Payroll Nederland",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "In deze fictieve Nederlandse procedure bedraagt de vakantiebijslag minimaal 8% van het brutoloon en wordt ze meestal in mei of juni uitbetaald, tenzij de cao iets anders bepaalt."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "NL-ZIEKTE",
+    "title": "Loondoorbetaling bij ziekte · Nederland",
+    "kind": "Procedure",
+    "country": "NL",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "ziekte",
+    "owner": "Payroll Nederland",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "De werkgever betaalt bij ziekte het loon door volgens de wet en de cao; leg afspraken over aanvullingen vast in het klantdossier."
+      }
+    ],
+    "claims": {}
+  },
+  {
+    "id": "NL-OVERWERK",
+    "title": "Overwerk volgens de cao · Nederland",
+    "kind": "Procedure",
+    "country": "NL",
+    "client_id": null,
+    "statute": "ALL",
+    "topic": "overuren",
+    "owner": "Payroll Nederland",
+    "approved": true,
+    "valid_from": "2025-01-15",
+    "valid_until": null,
+    "updated_at": "2025-01-15",
+    "supersedes": [],
+    "passages": [
+      {
+        "section": "1",
+        "text": "Overwerk wordt vergoed volgens de toepasselijke cao; zonder cao-regeling gelden de afspraken in de arbeidsovereenkomst."
+      }
+    ],
     "claims": {}
   }
 ]

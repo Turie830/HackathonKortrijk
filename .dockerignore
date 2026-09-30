@@ -1,0 +1,9 @@
+data/*.sqlite3*
+data/demo-login.txt
+data/.pseudo_secret
+.venv/
+.git/
+__pycache__/
+tests/
+.env
+.idea/

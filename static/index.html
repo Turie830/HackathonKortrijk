@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#234b39">
-  <title>PARALLAX — Vraag en antwoord</title>
+  <title>PARALLAX — Vraag, antwoord en trackrecord</title>
   <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/static/style.css">
   <script src="/static/app.js" defer></script>
@@ -12,34 +12,65 @@
 <body>
   <header class="site-header">
     <a class="brand" href="/" aria-label="Parallax home">◒ <strong>parallax</strong></a>
-    <nav aria-label="Hoofdnavigatie">
-      <button class="nav-item active" data-tab="investigate" aria-pressed="true">Vraag stellen</button>
-      <button class="nav-item" data-tab="library" aria-pressed="false">Bronnen</button>
-      <button class="nav-item" data-tab="reviews" aria-pressed="false">Beoordelingen <span id="review-count" hidden></span></button>
+    <nav id="main-nav" aria-label="Hoofdnavigatie" hidden>
+      <button class="nav-item" data-tab="overview" data-roles="manager" aria-pressed="false">Overzicht</button>
+      <button class="nav-item" data-tab="investigate" data-roles="consultant owner manager" aria-pressed="false">Vraag stellen</button>
+      <button class="nav-item" data-tab="library" data-roles="consultant owner manager" aria-pressed="false">Bronnen</button>
+      <button class="nav-item" data-tab="reviews" data-roles="consultant owner manager" aria-pressed="false">Beoordelingen <span id="review-count" hidden></span></button>
+      <button class="nav-item" data-tab="mine" data-roles="owner" aria-pressed="false">Mijn bronnen</button>
     </nav>
+    <div id="user-box" class="user-box" hidden>
+      <label id="perspective-wrap" class="perspective" hidden>Bekijk als <select id="perspective"></select></label>
+      <span id="user-name"></span>
+      <button id="logout" class="text-button" type="button">Uitloggen</button>
+    </div>
     <span class="demo-label">Demo met fictieve gegevens</span>
   </header>
   <main>
     <div id="error" class="error" role="alert" tabindex="-1" hidden></div>
-    <section id="investigate-view" class="view">
+
+    <section id="login-view" class="view" hidden>
+      <div class="page-heading">
+        <h1>Welkom bij PARALLAX</h1>
+        <p>Zie waar een antwoord vandaan komt, voor wie het geldt, en of het in de praktijk standhoudt.</p>
+      </div>
+      <form id="login-form" class="question-box login-box">
+        <div class="field"><label for="username">Gebruikersnaam</label><input id="username" autocomplete="username" required maxlength="40" autocapitalize="none" spellcheck="false"></div>
+        <div class="field"><label for="password">Wachtwoord</label><input id="password" type="password" autocomplete="current-password" maxlength="200"></div>
+        <button id="login-button" class="primary" type="submit">Inloggen <span aria-hidden="true">→</span></button>
+        <div class="hint">
+          <strong>Demo:</strong> log in als <code>admin</code> zonder wachtwoord. Dat werkt alleen op deze computer. Wissel daarna rechtsboven tussen de perspectieven.
+          De accounts <code>sara</code> (consultant), <code>an</code> (bronhouder) en <code>kim</code> (kennisbeheerder) gebruiken het wachtwoord uit <code>data/demo-login.txt</code>.
+        </div>
+      </form>
+    </section>
+
+    <section id="investigate-view" class="view" hidden>
       <div class="page-heading">
         <h1>Waar zoek je een antwoord op?</h1>
-        <p>Stel een vraag. Bekijk het antwoord en de bronnen waarop het is gebaseerd.</p>
+        <p>Stel een vraag. Bekijk het antwoord, de bronnen en hoe die bronnen het in de praktijk deden.</p>
       </div>
       <form id="question-form" class="question-box">
+        <div id="ticket-row" class="ticket-row" hidden>
+          <label for="ticket">Werk je aan een ticket? <span class="optional">Optioneel</span></label>
+          <select id="ticket"><option value="">Geen ticket</option></select>
+          <p id="ticket-note" class="microcopy" hidden>De context komt van het ticket. Zo telt de uitkomst voor de juiste situatie.</p>
+        </div>
         <label for="question" class="section-label"><span class="step">1</span> Je vraag</label>
-        <textarea id="question" minlength="3" maxlength="1000" required rows="2" placeholder="Bijvoorbeeld: Wat is de deadline voor de maandelijkse verwerking?"></textarea>
+        <textarea id="question" minlength="3" maxlength="1000" required rows="2" placeholder="Bijvoorbeeld: Wie betaalt het vakantiegeld van een arbeider?"></textarea>
         <div class="example-row" aria-label="Voorbeeldvragen">
           <span>Probeer een voorbeeld:</span>
           <button type="button" data-scenario="deadline">Deadline</button>
           <button type="button" data-scenario="correction">Looncorrectie</button>
           <button type="button" data-scenario="handover">Klantoverdracht</button>
+          <button type="button" data-scenario="holiday">Vakantiegeld</button>
         </div>
         <details id="context-options" class="context-options">
-          <summary>Land, klant of datum aanpassen <span id="context-summary">België · Algemeen · 30 september 2026</span></summary>
+          <summary>Land, klant, statuut of datum aanpassen <span id="context-summary">België · Algemeen · Statuut onbekend · 30 september 2026</span></summary>
           <div class="context-controls">
             <div><label for="country">Land</label><select id="country"><option value="BE">België</option><option value="NL">Nederland</option></select></div>
-            <div><label for="client">Klant</label><select id="client"><option value="">Algemeen</option><option value="demo-acme">Demo Acme</option></select></div>
+            <div><label for="client">Klant</label><select id="client"><option value="">Algemeen</option></select></div>
+            <div><label for="statute">Statuut</label><select id="statute"><option value="alle">Onbekend</option><option value="arbeider">Arbeider</option><option value="bediende">Bediende</option></select></div>
             <div><label for="as-of">Datum waarop de informatie moet gelden</label><input id="as-of" type="date" value="2026-09-30" required min="2000-01-01" max="2100-12-31"></div>
           </div>
         </details>
@@ -50,11 +81,15 @@
     </section>
     <section id="library-view" class="view" hidden></section>
     <section id="reviews-view" class="view" hidden></section>
-    <footer>Dit is een demo met voorbeeldprocedures. Er worden geen echte experts gecontacteerd.</footer>
+    <section id="mine-view" class="view" hidden></section>
+    <section id="dossier-view" class="view" hidden></section>
+    <section id="overview-view" class="view wide" hidden></section>
+    <footer>Dit is een demo met fictieve procedures, klanten en payrollregels. Er worden geen echte experts gecontacteerd.</footer>
   </main>
   <dialog id="source-dialog" aria-labelledby="source-dialog-title">
-    <div class="dialog-top"><span>Volledige bron</span><button id="close-dialog" class="icon-button" aria-label="Sluit bron">×</button></div>
+    <div class="dialog-top"><span>Volledige bron</span><button id="close-dialog" class="icon-button" type="button" aria-label="Sluit bron">×</button></div>
     <div id="source-dialog-content"></div>
   </dialog>
+  <div id="toast" role="status" hidden></div>
 </body>
 </html>
