@@ -1,0 +1,32 @@
+{
+  "seeds": 20,
+  "planted_total": 80,
+  "per_document": {
+    "TR-VAK-01": 20,
+    "TR-EJP-01": 20,
+    "TR-BES-01": 19,
+    "TR-MC-01": 13
+  },
+  "found": 72,
+  "false_alarms": 0,
+  "normal_total": 440,
+  "segment_correct": 20,
+  "gap_found": 19,
+  "false_gaps": 0,
+  "median_days_to_detect_change": 49.0,
+  "missed_change": 6,
+  "median_days_to_detect_change_no_recency": 63,
+  "missed_change_no_recency": 11,
+  "median_uses_to_detect_vak01": 12.0,
+  "ablations": {
+    "zonder_afvlakking_en_minimum_bewijs": {
+      "found": 77,
+      "false_alarms": 143
+    },
+    "zonder_recentheid": {
+      "found": 69,
+      "false_alarms": 6
+    }
+  },
+  "first_seed": 101
+}

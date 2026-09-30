@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Local runtime data (database, generated secrets, demo login, evaluation cache)
+data/*
+!data/.gitkeep
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Local tooling
+.claude/
