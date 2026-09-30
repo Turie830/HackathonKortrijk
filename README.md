@@ -54,9 +54,9 @@ Om de server te stoppen druk je op `Ctrl+C`.
 Zie [de Cloud Run-handleiding](docs/deployment.md) voor de deploycommando's en
 de beperkingen van deze gedeelde demo.
 
-De `Dockerfile` start de app achter de proxy van Cloud Run: `--proxy-headers`, secure cookies, en demoknoppen en het
-admin-account zonder wachtwoord uitgeschakeld. Geef bij het deployen `PARALLAX_ALLOWED_HOSTS` (je hostnaam) en
-`PARALLAX_DEMO_PASSWORD` mee, zodat je als `sara`, `an` of `kim` kan inloggen. Zie `.env.example`.
+Online log je in als `admin` met het **teamwachtwoord** dat je bij het deployen instelt
+(`PARALLAX_ADMIN_PASSWORD`). Het lege admin-wachtwoord werkt alleen lokaal. De `Dockerfile` vertrouwt de
+proxy van Cloud Run (HTTPS, secure cookies) en laat de demoknoppen aan voor de kennisbeheerder.
 
 ## Zo gebruik je de website
 
