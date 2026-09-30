@@ -20,6 +20,11 @@ Open daarna [http://127.0.0.1:8000](http://127.0.0.1:8000). De API-specificatie
 staat op [http://127.0.0.1:8000/openapi.json](http://127.0.0.1:8000/openapi.json).
 Om de server te stoppen, druk je op `Ctrl+C` in de terminal waar hij draait.
 
+## Deploy op Google Cloud
+
+Zie [de Cloud Run-handleiding](docs/deployment.md) voor de deploycommando's en
+de beperkingen van deze gedeelde demo.
+
 ## Zo gebruik je de website
 
 De website begint met één vraagveld. Typ je vraag of klik op het voorbeeld

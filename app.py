@@ -1,6 +1,7 @@
 """PARALLAX: a local evidence workbench for the SD Worx challenge."""
 from contextlib import asynccontextmanager
 from datetime import date
+import os
 from pathlib import Path
 from typing import Literal
 
@@ -22,7 +23,9 @@ async def lifespan(app):
 
 app = FastAPI(title="PARALLAX · SD Worx challenge", lifespan=lifespan, docs_url=None, redoc_url=None)
 app.state.database = knowledge.DATABASE
-app.add_middleware(TrustedHostMiddleware, allowed_hosts=["127.0.0.1", "localhost", "[::1]", "testserver"])
+allowed_hosts = ["127.0.0.1", "localhost", "[::1]", "testserver"]
+allowed_hosts.extend(host.strip() for host in os.getenv("PARALLAX_ALLOWED_HOSTS", "").split(",") if host.strip())
+app.add_middleware(TrustedHostMiddleware, allowed_hosts=allowed_hosts)
 app.mount("/static", StaticFiles(directory=knowledge.ROOT / "static"), name="static")
 
 
